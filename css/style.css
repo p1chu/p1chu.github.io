@@ -1,0 +1,36 @@
+*{
+	text-align: center;
+}
+
+body{
+	padding-top: 48px;
+}
+
+#manners{
+	margin: 0;
+	font-size: 144px;
+	line-height: 128px;
+	font-family: 'Old Standard TT';
+}
+
+#which-one{
+	font-size: 300px;
+/*	line-height: 244;*/
+	font-weight: 700;
+	margin: 0 0 0 0;
+/*
+	margin: 0;
+	padding: 0;
+*/
+	font-family: 'Libre Franklin';
+}
+
+#till{
+	font-size: 48px;
+	font-family: 'Libre Franklin';
+}
+
+#time{
+	font-size: 48px;
+	font-family: 'Libre Franklin';
+}
