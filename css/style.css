@@ -3,18 +3,18 @@
 }
 
 body{
-	padding-top: 48px;
+	padding-top: 5%;
 }
 
 #manners{
 	margin: 0;
-	font-size: 144px;
-	line-height: 128px;
+	font-size: 1000%;
+	line-height: 80%;
 	font-family: 'Old Standard TT';
 }
 
 #which-one{
-	font-size: 300px;
+	font-size: 2000%;
 /*	line-height: 244;*/
 	font-weight: 700;
 	margin: 0 0 0 0;
@@ -26,11 +26,11 @@ body{
 }
 
 #till{
-	font-size: 48px;
-	font-family: 'Libre Franklin';
+	font-size: 1000%;
+	font-family: 'Old Standard TT';
 }
 
 #time{
-	font-size: 48px;
-	font-family: 'Libre Franklin';
+	font-size: 1000%;
+	font-family: 'Old Standard TT';
 }

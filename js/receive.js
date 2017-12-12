@@ -80,8 +80,8 @@ function setTheHour (data) {
 			break;
 		}
 	
-	$("#till").text("T I L L " + hour);
-//	$("#time").text(hour + " o'clock");
+	$("#time").text(hour);
+
 }
 
 function openClose (data) {
@@ -90,7 +90,7 @@ function openClose (data) {
 		$("#manners").text("Sorry, we're");
 		$("#which-one").text("CLOSED");
 	} else {
-		$("#manners").text("Yes, we're.");
+		$("#manners").text("Yes, we're");
 		$("#which-one").text("O P E N");
 	}
 }
