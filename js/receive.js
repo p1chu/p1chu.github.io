@@ -34,51 +34,51 @@ function setTheHour (data) {
 	switch (range) {
 		case 0:
 			//0-79 : 1 o'clock
-			hour = 1;
+			hour = 12;
 			break;
 		case 1:
 			//80-159 : 2 o'clock
-			hour = 2;
+			hour = 1;
 			break;
 		case 2:
 			//160-239 : 3 o'clock
-			hour = 3;
+			hour = 2;
 			break;
 		case 3:
 			//240-319 : 4 o'clock
-			hour = 4;
+			hour = 3;
 			break;
 		case 4:
 			//320-399 : 5 o'clock
-			hour = 5;
+			hour = 4;
 			break;
 		case 5:
 			//400-479 : 6 o'clock
-			hour = 6;
+			hour = 5;
 			break;
 		case 6:
 			//480-559 : 7 o'clock
-			hour = 7;
+			hour = 6;
 			break;
 		case 7:
 			//560-639 : 8 o'clock
-			hour = 8;
+			hour = 7;
 			break;
 		case 8:
 			//640-719 : 9 o'clock
-			hour = 9;
+			hour = 8;
 			break;
 		case 9:
 			//720-799 : 10 o'clock
-			hour = 10;
+			hour = 9;
 			break;
 		case 10:
 			//800-879 : 11 o'clock
-			hour = 11;
+			hour = 10;
 			break;
 		case 11:
 			//880-960 : 12 o'clock
-			hour = 12;
+			hour = 11;
 			break;
 		}
 
