@@ -2,7 +2,7 @@
 var adaname = 'morourke';
 var adafeedkey1 = 'triptofan';
 var adafeedkey2 = 'open-or-closed';
-var aiokey = '7290d199347c4a7cbae57969efcd18ed';
+var aiokey = 'a56caf0873014e4ab445fe9464593678';
 
 var currentValue;
 var hour;
