@@ -13,7 +13,7 @@ setInterval(function () {
     
 	getAdaIO(adaname, adafeedkey1, aiokey, setTheHour);
 	
-}, 10000);
+}, 2000);
 
 
 // Feed 2: Open or Closed
