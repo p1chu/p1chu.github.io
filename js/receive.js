@@ -79,8 +79,6 @@ function setTheHour (data) {
 			hour = 12;
 			break;
 		}
-	
-	$("#time").text(hour);
 
 }
 
@@ -89,8 +87,11 @@ function openClose (data) {
 	if (data === 0){
 		$("#manners").text("Sorry, we're");
 		$("#which-one").text("CLOSED");
+		$("#time-wrapper").show();
+		$("#time").text(hour);
 	} else {
 		$("#manners").text("Yes, we're");
 		$("#which-one").text("O P E N");
+		$("#time-wrapper").hide();
 	}
 }

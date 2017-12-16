@@ -3,7 +3,7 @@
 }
 
 body{
-	padding-top: 5%;
+	padding-top: 8%;
 }
 
 
@@ -34,4 +34,8 @@ body{
 #time{
 	font-size: 1000%;
 	font-family: 'Old Standard TT';
+}
+
+#time-wrapper{
+	display: none;
 }
