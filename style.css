@@ -15,7 +15,7 @@ header nav {
 }
 
 header img {
-	height: 24px;
+	height: 32px;
 }
 
 section.welcome {
@@ -31,7 +31,7 @@ section.welcome {
 h1 {
 	margin:0;
 	padding:0;
-	font-size: 8vw;
+	font-size: 12vw;
 	line-height: 9.5vw;
 	font-weight: 400;
 	color: #AF7921;
