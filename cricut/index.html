@@ -84,7 +84,7 @@ button:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
       <li><span><b>Brightness all the way up</b>, and Auto-Lock off if it dims early.</span></li>
       <li><span><b>Open the box</b> and make sure the acetate sits at its 45° angle.</span></li>
       <li><span>Tap <b>Test pattern</b>, lay the phone face-down over the top window, and look in through the front. Change the settings until “READ ME” reads correctly and “BACK” points up.</span></li>
-      <li><span>Tap <b>Play</b>. You get a countdown to place the phone.</span></li>
+      <li><span>Tap <b>Play</b>. You get a countdown to place the phone, then the video plays.</span></li>
     </ol>
   </section>
 
@@ -102,8 +102,8 @@ button:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
           <label><input type="radio" name="color" value="gold" id="cGold"><span class="sw" style="background:#ffd27a"></span>Gold</label>
         </div>
       </div>
-      <div class="row"><span>Start at</span><select id="start"></select></div>
-      <div class="row"><span>Loop<small>Repeat instead of ending on the gallery</small></span><input type="checkbox" id="loop"></div>
+      
+      <div class="row"><span>Loop<small>Repeat the video instead of ending on the gallery</small></span><input type="checkbox" id="loop"></div>
     </div>
   </section>
 
@@ -121,6 +121,7 @@ button:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
 </div>
 
 <canvas id="stage" hidden aria-label="Hologram playback"></canvas>
+<video id="vid" src="floo-message.mp4" playsinline preload="auto" style="position:fixed;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none"></video>
 
 <main id="end" class="wrap" hidden>
   <div>
@@ -453,10 +454,21 @@ const SCENES = [
 ];
 let mode = "idle", sceneIdx = 0, sceneT = 0, last = 0, raf = 0, countTimer = 0, wl = null;
 
+const vid = $("vid");
+function drawVideo(){
+  if (vid.readyState < 2) return;
+  const h = 360, w = h * (vid.videoWidth / vid.videoHeight || 9 / 16);   // fit the window height (units = 0.01 in)
+  ctx.drawImage(vid, -w / 2, -h / 2, w, h);
+}
+vid.addEventListener("ended", () => {
+  if (mode !== "video") return;
+  if (S.loop){ vid.currentTime = 0; vid.play().catch(() => {}); } else finish();
+});
 function frame(now){
   const dt = Math.min(.05, (now - last) / 1000); last = now;
   base();
   if (mode === "cal") drawCal();
+  else if (mode === "video") drawVideo();
   else if (mode === "play"){
     sceneT += dt * 1000;
     if (sceneT >= SCENES[sceneIdx].dur){
@@ -483,19 +495,21 @@ function run(m){
 }
 function startPlay(){
   wake(); show("count");
+  // unlock playback with sound while we still have the tap
+  try { vid.muted = false; vid.currentTime = 0; const pr = vid.play(); if (pr) pr.then(() => { vid.pause(); vid.currentTime = 0; }).catch(() => {}); } catch(e) {}
   let n = 5; $("countN").textContent = n;
   clearInterval(countTimer);
   countTimer = setInterval(() => {
     n--;
     if (n > 0){ $("countN").textContent = n; return; }
     clearInterval(countTimer);
-    sceneIdx = Math.min(S.start, SCENES.length - 1); sceneT = 0;
-    if (SCENES[sceneIdx].enter) SCENES[sceneIdx].enter();
-    run("play");
+    vid.currentTime = 0;
+    vid.play().catch(() => { vid.muted = true; vid.play().catch(() => {}); });
+    run("video");
   }, 1000);
 }
-function stop(){ clearInterval(countTimer); cancelAnimationFrame(raf); mode = "idle"; release(); show("menu"); }
-function finish(){ cancelAnimationFrame(raf); mode = "idle"; release(); show("end"); }
+function stop(){ try { vid.pause(); } catch(e) {} clearInterval(countTimer); cancelAnimationFrame(raf); mode = "idle"; release(); show("menu"); }
+function finish(){ try { vid.pause(); } catch(e) {} cancelAnimationFrame(raf); mode = "idle"; release(); show("end"); }
 
 /* ---------- Wire up the settings ---------- */
 function syncUI(){
@@ -503,16 +517,15 @@ function syncUI(){
   $("turnVal").textContent = S.turn + "°";
   $("size").value = S.size; $("sizeVal").textContent = S.size + "%";
   document.querySelectorAll('input[name=color]').forEach(r => r.checked = r.value === S.color);
-  $("start").value = String(S.start);
 }
-SCENES.forEach((s, i) => { const o = document.createElement("option"); o.value = String(i); o.textContent = s.name; $("start").appendChild(o); });
+
 $("mx").addEventListener("change", e => { S.mx = e.target.checked; save(); });
 $("my").addEventListener("change", e => { S.my = e.target.checked; save(); });
 $("loop").addEventListener("change", e => { S.loop = e.target.checked; save(); });
 $("turn").addEventListener("click", () => { S.turn = (S.turn + 90) % 360; save(); syncUI(); });
 $("size").addEventListener("input", e => { S.size = +e.target.value; save(); syncUI(); });
 document.querySelectorAll('input[name=color]').forEach(r => r.addEventListener("change", () => { S.color = r.value; save(); }));
-$("start").addEventListener("change", e => { S.start = +e.target.value; save(); });
+
 $("play").addEventListener("click", startPlay);
 $("cal").addEventListener("click", () => { wake(); run("cal"); });
 $("replay").addEventListener("click", startPlay);
