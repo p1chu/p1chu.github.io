@@ -63,7 +63,7 @@ function frame(){
   ctx.translate(W / 2, H / 2);
   ctx.rotate((((H > W ? 90 : 0) + turn) % 360) * Math.PI / 180);
   const s = Math.min(W, H) / 2.7 / 100;
-  ctx.scale(-s, -s);   // mirrored + flipped vertically (per in-box test)
+  ctx.scale(s, -s);    // flipped vertically only (per in-box test)
   if (mode === "count"){            // countdown, oriented exactly like the video
     ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.shadowColor = "#fff"; ctx.shadowBlur = 14 * dpr;
