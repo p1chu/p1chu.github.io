@@ -18,7 +18,8 @@ h1{margin:0;font-size:22px;font-weight:500;line-height:1.3;max-width:18em}
 .hands button:focus-visible{outline:2px solid #9fe6ff;outline-offset:3px}
 .tip{margin:0;max-width:20em;font-size:14px;line-height:1.5;color:#8e9298}
 .n{font-size:min(42vw,200px);font-weight:700;line-height:1}
-#count p{margin:0;font-size:18px;max-width:16em}
+#hint{position:fixed;left:0;right:0;bottom:max(40px,env(safe-area-inset-bottom,0px));margin:0;z-index:2;text-align:center;font-size:17px;color:#8e9298;transition:opacity .8s}
+#hint.fade{opacity:0}
 #stage{position:fixed;inset:0;width:100%;height:100%;display:block;background:#000;touch-action:none}
 </style>
 </head>
@@ -33,13 +34,10 @@ h1{margin:0;font-size:22px;font-weight:500;line-height:1.3;max-width:18em}
   <p class="tip">Tip: the darker the room and the brighter your screen, the better.</p>
 </main>
 
-<div id="count" class="screen" hidden>
-  <div class="n" id="countN">5</div>
-  <p>Place your phone face down on top of the box.</p>
-</div>
+<p id="hint" hidden>Place your phone face down on top of the box.</p>
 
 <canvas id="stage" hidden aria-label="Hologram"></canvas>
-<video id="vid" src="floo-message.mp4" playsinline preload="auto"
+<video id="vid" src="hi-cricut.mp4" playsinline preload="auto"
   style="position:fixed;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none"></video>
 
 <script>
@@ -49,7 +47,8 @@ const $ = id => document.getElementById(id);
 const cv = $("stage"), ctx = cv.getContext("2d"), vid = $("vid");
 // Mapping into the box (units: 0.01 in). Reflection reverses one axis, so the picture is mirrored.
 // The hand only decides which way the phone's top ends up, so it turns the picture 180°.
-let turn = 0, W = 0, H = 0, dpr = 1, raf = 0, timer = 0, wl = null, playing = false;
+let turn = 0, W = 0, H = 0, dpr = 1, raf = 0, timer = 0, wl = null, playing = false, mode = "idle", count = 10;
+const COUNT = 10;
 
 function resize(){
   dpr = Math.min(3, window.devicePixelRatio || 1);
@@ -65,14 +64,20 @@ function frame(){
   ctx.rotate((((H > W ? 90 : 0) + turn) % 360) * Math.PI / 180);
   const s = Math.min(W, H) / 2.7 / 100;
   ctx.scale(-s, s);
-  if (vid.readyState >= 2){
-    const h = 360, w = h * (vid.videoWidth / vid.videoHeight || 9 / 16);
+  if (mode === "count"){            // countdown, oriented exactly like the video
+    ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.shadowColor = "#fff"; ctx.shadowBlur = 14 * dpr;
+    ctx.font = '700 170px "Helvetica Neue", Helvetica, Arial, sans-serif';
+    ctx.fillText(String(count), 0, 8);
+    ctx.shadowBlur = 0;
+  } else if (mode === "video" && vid.readyState >= 2){
+    const h = 250, w = h * (vid.videoWidth / vid.videoHeight || 1);
     ctx.drawImage(vid, -w / 2, -h / 2, w, h);
   }
   raf = requestAnimationFrame(frame);
 }
 
-function show(id){ for (const k of ["start", "count"]) $(k).hidden = k !== id; cv.hidden = id !== "stage"; }
+function show(id){ $("start").hidden = id !== "start"; cv.hidden = id !== "stage"; }
 async function wake(){ try { if (navigator.wakeLock) wl = await navigator.wakeLock.request("screen"); } catch(e) {} }
 function release(){ try { if (wl) wl.release(); } catch(e) {} wl = null; }
 
@@ -81,27 +86,27 @@ function begin(hand){
   wake();
   // unlock sound while we still have the tap
   try { vid.muted = false; vid.currentTime = 0; const p = vid.play(); if (p) p.then(() => { vid.pause(); vid.currentTime = 0; }).catch(() => {}); } catch(e) {}
-  show("count");
-  let n = 5; $("countN").textContent = n;
+  resize(); show("stage"); mode = "count"; count = COUNT;
+  const hint = $("hint"); hint.hidden = false; hint.classList.remove("fade");
+  setTimeout(() => hint.classList.add("fade"), 3000);
+  cancelAnimationFrame(raf); raf = requestAnimationFrame(frame);
   clearInterval(timer);
   timer = setInterval(() => {
-    if (--n > 0){ $("countN").textContent = n; return; }
+    if (--count > 0) return;
     clearInterval(timer);
-    resize(); show("stage"); playing = true;
+    hint.hidden = true; mode = "video"; playing = true;
     vid.currentTime = 0;
     vid.play().catch(() => { vid.muted = true; vid.play().catch(() => {}); });
-    cancelAnimationFrame(raf); raf = requestAnimationFrame(frame);
   }, 1000);
 }
 function reset(){
-  clearInterval(timer); cancelAnimationFrame(raf); playing = false;
+  clearInterval(timer); cancelAnimationFrame(raf); playing = false; mode = "idle";
   try { vid.pause(); } catch(e) {}
-  release(); show("start");
+  $("hint").hidden = true; release(); show("start");
 }
-vid.addEventListener("ended", () => { if (playing) reset(); });
+vid.addEventListener("ended", () => { playing = false; mode = "done"; release(); });
 $("left").addEventListener("click", () => begin("left"));
 $("right").addEventListener("click", () => begin("right"));
-$("count").addEventListener("click", reset);
 cv.addEventListener("click", reset);
 document.addEventListener("visibilitychange", () => { if (!document.hidden && playing) wake(); });
 })();
