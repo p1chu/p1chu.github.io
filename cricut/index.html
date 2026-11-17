@@ -3,186 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Hello Cricut Hologram</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800;900&family=Inter:wght@400;500;600&display=swap">
+<title>Hello, Cricut</title>
 <style>
 [hidden]{display:none!important}
 *,*::before,*::after{box-sizing:border-box}
-body{margin:0}
-/* Layout: one narrow control column on pure black; playback is a full-bleed canvas (black = invisible in the box) */
-:root{
-  --bg:#000000;
-  --panel:#0b0c0e;
-  --line:#23252a;
-  --fg:#f1f1ec;
-  --muted:#8e9298;
-  --glow:#bfe9ff;
-  --display:"Archivo","Arial Black",system-ui,sans-serif;
-  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
-  color-scheme:dark;
-}
-html,body{height:100%;background:var(--bg);color:var(--fg)}
-body{font-family:var(--body);font-size:15px;line-height:1.55;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap{max-width:34rem;margin:0 auto;padding-block:28px 48px;display:flex;flex-direction:column;gap:28px}
-.chip{align-self:flex-start;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
-  border:1px solid var(--line);border-radius:999px;padding:3px 10px}
-h1,h2{font-family:var(--display);font-weight:900;letter-spacing:-.01em;line-height:1.05;margin:0;text-wrap:balance}
-h1{font-size:2.3rem}
-h2{font-size:1.9rem}
-.lede{color:var(--muted);margin:10px 0 0;max-width:60ch}
-.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;counter-reset:s}
-.steps li{display:grid;grid-template-columns:28px 1fr;gap:10px;counter-increment:s}
-.steps li::before{content:counter(s);font-family:var(--display);font-weight:800;color:var(--glow);font-size:15px;line-height:1.55}
-.steps b{font-weight:600;color:var(--fg)}
-.label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
-.settings{border-top:1px solid var(--line)}
-.row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:13px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.row > span{min-width:0}
-.row small{display:block;color:var(--muted);font-size:12.5px}
-input[type=checkbox]{width:22px;height:22px;accent-color:var(--fg)}
-input[type=range]{width:min(200px,100%);accent-color:var(--fg)}
-select{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font:inherit}
-.seg{display:flex;gap:6px}
-.seg label{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 11px 5px 7px;cursor:pointer;font-size:13.5px}
-.seg input{position:absolute;opacity:0;pointer-events:none}
-.seg label:has(input:checked){border-color:var(--fg)}
-.seg label:has(input:focus-visible){outline:2px solid var(--glow);outline-offset:2px}
-.sw{width:14px;height:14px;border-radius:50%}
-.val{font-variant-numeric:tabular-nums;color:var(--muted);min-width:3.2em;text-align:right}
-.actions{display:flex;gap:10px;flex-wrap:wrap}
-button{font:600 15px/1 var(--body);border-radius:10px;padding:14px 20px;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--fg)}
-button.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-button.small{padding:8px 12px;font-size:13.5px}
-button:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
-.note{color:var(--muted);font-size:13px;margin:0}
-#stage{position:fixed;inset:0;width:100%;height:100%;display:block;background:#000;touch-action:none;z-index:20}
-#count{position:fixed;inset:0;z-index:30;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-  text-align:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
-#count .n{font-family:var(--display);font-weight:900;font-size:min(42vw,220px);line-height:1;color:var(--fg)}
-#count p{margin:0;max-width:22ch;font-size:18px}
-#count small{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
-.tile{aspect-ratio:4/5;max-width:100%;border:1px dashed var(--line);border-radius:12px;display:flex;align-items:flex-end;padding:12px;color:var(--muted);font-size:13px}
-.tile b{display:block;color:var(--fg);font-weight:600}
+html,body{height:100%;margin:0;background:#000;color:#f1f1ec;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;text-align:center;
+  padding:24px max(24px,env(safe-area-inset-right,0px)) 24px max(24px,env(safe-area-inset-left,0px))}
+h1{margin:0;font-size:22px;font-weight:500;line-height:1.3;max-width:18em}
+.hands{display:flex;gap:14px;width:100%;max-width:360px}
+.hands button{flex:1;font-family:inherit;font-size:19px;font-weight:500;line-height:1;padding:22px 0;border-radius:14px;border:1px solid #f1f1ec;background:transparent;color:#f1f1ec;cursor:pointer}
+.hands button:active{background:#f1f1ec;color:#000}
+.hands button:focus-visible{outline:2px solid #9fe6ff;outline-offset:3px}
+.tip{margin:0;max-width:20em;font-size:14px;line-height:1.5;color:#8e9298}
+.n{font-size:min(42vw,200px);font-weight:700;line-height:1}
+#count p{margin:0;font-size:18px;max-width:16em}
+#stage{position:fixed;inset:0;width:100%;height:100%;display:block;background:#000;touch-action:none}
 </style>
-
 </head>
 <body>
-<main id="menu" class="wrap">
-  <div>
-    <span class="chip">Test build · placeholder content</span>
-    <h1 style="margin-top:12px">Hello, Cricut.</h1>
-    <p class="lede">The hologram that plays inside the box. Copy, icons and photos are stand-ins until the real ones drop in.</p>
+
+<main id="start" class="screen">
+  <h1>Which hand are you holding your phone in?</h1>
+  <div class="hands">
+    <button type="button" id="left">Left</button>
+    <button type="button" id="right">Right</button>
   </div>
-
-  <section>
-    <p class="label">How to test</p>
-    <ol class="steps">
-      <li><span><b>Brightness all the way up</b>, and Auto-Lock off if it dims early.</span></li>
-      <li><span><b>Open the box</b> and make sure the acetate sits at its 45° angle.</span></li>
-      <li><span>Tap <b>Test pattern</b>, lay the phone face-down over the top window, and look in through the front. Change the settings until “READ ME” reads correctly and “BACK” points up.</span></li>
-      <li><span>Tap <b>Play</b>. You get a countdown to place the phone, then the video plays.</span></li>
-    </ol>
-  </section>
-
-  <section>
-    <p class="label">Settings</p>
-    <div class="settings">
-      <div class="row"><span>Mirror left–right<small>Reflection reverses one axis</small></span><input type="checkbox" id="mx"></div>
-      <div class="row"><span>Mirror up–down</span><input type="checkbox" id="my"></div>
-      <div class="row"><span>Rotate<small>Turns the picture on the screen</small></span><span style="display:flex;align-items:center;gap:10px"><span class="val" id="turnVal">0°</span><button class="small" id="turn" type="button">Rotate 90°</button></span></div>
-      <div class="row"><span>Size<small>100% ≈ 3 × 2.4 in on the screen</small></span><span style="display:flex;align-items:center;gap:10px"><input type="range" id="size" min="60" max="140" step="5"><span class="val" id="sizeVal">100%</span></span></div>
-      <div class="row"><span>Color</span>
-        <div class="seg" role="radiogroup" aria-label="Color">
-          <label><input type="radio" name="color" value="white" id="cWhite"><span class="sw" style="background:#ffffff"></span>White</label>
-          <label><input type="radio" name="color" value="ice" id="cIce"><span class="sw" style="background:#9fe6ff"></span>Ice</label>
-          <label><input type="radio" name="color" value="gold" id="cGold"><span class="sw" style="background:#ffd27a"></span>Gold</label>
-        </div>
-      </div>
-      
-      <div class="row"><span>Loop<small>Repeat the video instead of ending on the gallery</small></span><input type="checkbox" id="loop"></div>
-    </div>
-  </section>
-
-  <div class="actions">
-    <button class="primary" id="play" type="button">Play</button>
-    <button id="cal" type="button">Test pattern</button>
-  </div>
-  <p class="note">Tap the screen anytime to stop and come back here.</p>
+  <p class="tip">Tip: the darker the room and the brighter your screen, the better.</p>
 </main>
 
-<div id="count" hidden>
+<div id="count" class="screen" hidden>
   <div class="n" id="countN">5</div>
-  <p>Lay the phone face-down on the box.</p>
-  <small>Screen down, centered on the top window. Tap to cancel.</small>
+  <p>Place your phone face down on top of the box.</p>
 </div>
 
-<canvas id="stage" hidden aria-label="Hologram playback"></canvas>
-<video id="vid" src="floo-message.mp4" playsinline preload="auto" style="position:fixed;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none"></video>
-
-<main id="end" class="wrap" hidden>
-  <div>
-    <span class="chip">After the hologram · phone face-up</span>
-    <h2 style="margin-top:12px">Thanks for opening the box.</h2>
-    <p class="lede">Here's some of what I've made. Photos go in each tile.</p>
-  </div>
-  <div class="grid">
-    <div class="tile"><span><b>Book work</b>Photo coming</span></div>
-    <div class="tile"><span><b>Letters</b>Photo coming</span></div>
-    <div class="tile"><span><b>Icons</b>Photo coming</span></div>
-    <div class="tile"><span><b>Posters</b>Photo coming</span></div>
-    <div class="tile"><span><b>Apps</b>Photo coming</span></div>
-    <div class="tile"><span><b>Patches</b>Photo coming</span></div>
-  </div>
-  <p class="note">Matthew · email · portfolio link (placeholders)</p>
-  <div class="actions">
-    <button class="primary" id="replay" type="button">Replay</button>
-    <button id="back" type="button">Settings</button>
-  </div>
-</main>
+<canvas id="stage" hidden aria-label="Hologram"></canvas>
+<video id="vid" src="floo-message.mp4" playsinline preload="auto"
+  style="position:fixed;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none"></video>
 
 <script>
 (function(){
 "use strict";
-
-/* ---------- Content: edit these lines ---------- */
-const CFG = {
-  hello: ["Hello,", "Cricut."],
-  makeLead: "I make",
-  makes: ["books", "letters", "posters", "patches", "stickers", "apps", "icons", "brands"],
-  makesEnd: "things.",
-  iconsCaption: "icons, endlessly",
-  career: ["Lucidchart", "Spiff", "Salesforce"],
-  scaleStart: "0 → 1",
-  scaleEnd: "0 → 1 → enterprise",
-  studio: ["Building my", "own studio."],
-  invite: ["And I'd love", "to build with you."],
-  name: "Matthew",
-  flip: ["Flip me over"]
-};
-const COLORS = { white:"#ffffff", ice:"#9fe6ff", gold:"#ffd27a" };
-
-/* ---------- Settings ---------- */
 const $ = id => document.getElementById(id);
-const S = { mx:true, my:false, turn:0, size:100, color:"white", start:0, loop:false };
-try { Object.assign(S, JSON.parse(localStorage.getItem("holo-settings") || "{}")); } catch(e) {}
-function save(){ try { localStorage.setItem("holo-settings", JSON.stringify(S)); } catch(e) {} }
-const col = () => COLORS[S.color] || "#ffffff";
+const cv = $("stage"), ctx = cv.getContext("2d"), vid = $("vid");
+// Mapping into the box (units: 0.01 in). Reflection reverses one axis, so the picture is mirrored.
+// The hand only decides which way the phone's top ends up, so it turns the picture 180°.
+let turn = 0, W = 0, H = 0, dpr = 1, raf = 0, timer = 0, wl = null, playing = false;
 
-/* ---------- Helpers ---------- */
-const clamp = x => x < 0 ? 0 : x > 1 ? 1 : x;
-const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
-const env = (t, dur, fi = 400, fo = 500) => clamp(t / fi) * clamp((dur - t) / fo);
-const font = (sz, w = 900) => `${w} ${sz}px Archivo, "Arial Black", sans-serif`;
-
-/* ---------- Canvas + box mapping ----------
-   Units: 1 unit = 0.01 in. Safe area = 300 x 240 units (3 x 2.4 in), centered.
-   Content x runs along the phone's long side (across the box). */
-const cv = $("stage"), ctx = cv.getContext("2d");
-let W = 0, H = 0, dpr = 1;
 function resize(){
   dpr = Math.min(3, window.devicePixelRatio || 1);
   W = window.innerWidth; H = window.innerHeight;
@@ -190,357 +58,53 @@ function resize(){
 }
 window.addEventListener("resize", resize); resize();
 
-function base(){
+function frame(){
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.globalAlpha = 1; ctx.shadowBlur = 0; ctx.setLineDash([]);
-  ctx.globalCompositeOperation = "source-over";
   ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
   ctx.translate(W / 2, H / 2);
-  const rot = ((H > W ? 90 : 0) + S.turn) % 360;
-  ctx.rotate(rot * Math.PI / 180);
-  const s = Math.min(W, H) / 2.7 / 100 * (S.size / 100);   // ~2.7 in across the short side
-  ctx.scale(s * (S.mx ? -1 : 1), s * (S.my ? -1 : 1));
-}
-function glow(b){ ctx.shadowColor = col(); ctx.shadowBlur = (b == null ? 12 : b) * dpr; }
-function fitSize(lines, sz, maxW, w){
-  ctx.font = font(sz, w);
-  const m = Math.max(...lines.map(l => ctx.measureText(l).width));
-  return m > maxW ? sz * maxW / m : sz;
-}
-function fillLines(lines, sz, alpha, w = 900, cy = 0){
-  sz = fitSize(lines, sz, 280, w);
-  const gap = sz * 1.18;
-  ctx.font = font(sz, w); ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.fillStyle = col(); ctx.globalAlpha = alpha; glow(14);
-  lines.forEach((l, i) => ctx.fillText(l, 0, cy - (lines.length - 1) * gap / 2 + i * gap));
-}
-
-/* ---------- Scene 1: Hello (blade traces each letter, then it lights up) ---------- */
-function sHello(t, dur){
-  const L = CFG.hello;
-  const sz = fitSize(L, 56, 280), gap = sz * 1.2;
-  ctx.font = font(sz); ctx.textAlign = "left"; ctx.textBaseline = "middle";
-  const chars = [];
-  L.forEach((line, li) => {
-    let x = -ctx.measureText(line).width / 2;
-    const y = -(L.length - 1) * gap / 2 + li * gap;
-    for (const ch of line){ const cw = ctx.measureText(ch).width; chars.push({ ch, x, y, cw }); x += cw; }
-  });
-  const T0 = 300, STAG = 200, TR = 750;
-  const done = T0 + (chars.length - 1) * STAG + TR;
-  const out = clamp((dur - t) / 500);
-  ctx.strokeStyle = col(); ctx.lineWidth = 1.4; ctx.lineJoin = "round"; ctx.lineCap = "round";
-  chars.forEach((c, k) => {
-    const p = clamp((t - T0 - k * STAG) / TR);
-    if (p <= 0) return;
-    ctx.globalAlpha = out; glow(8);
-    ctx.setLineDash([p * 260, 2000]);
-    ctx.strokeText(c.ch, c.x, c.y);
-    if (p < 1){ // the blade: a bright point riding through the letter
-      ctx.setLineDash([]); glow(18); ctx.fillStyle = "#fff";
-      const bx = c.x + c.cw * p, by = c.y + sz * .32 * Math.sin(p * Math.PI * 5);
-      ctx.beginPath(); ctx.arc(bx, by, 2.4, 0, Math.PI * 2); ctx.fill();
-    }
-  });
-  ctx.setLineDash([]);
-  const f = clamp((t - done) / 700) * out;
-  if (f > 0){
-    ctx.globalAlpha = f; ctx.fillStyle = col(); glow(16);
-    chars.forEach(c => ctx.fillText(c.ch, c.x, c.y));
-  }
-}
-
-/* ---------- Scene 2: I make ... (odometer roll that speeds up, lands on "things.") ---------- */
-function sMake(t, dur){
-  const a = env(t, dur), y1 = -40, y2 = 34;
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.font = font(fitSize([CFG.makeLead], 42, 280, 800), 800);
-  ctx.fillStyle = col(); glow(12); ctx.globalAlpha = a;
-  ctx.fillText(CFG.makeLead, 0, y1);
-
-  const words = [...CFG.makes, CFG.makesEnd];
-  const starts = []; let acc = 900, d = 850;
-  for (let k = 0; k < words.length; k++){ starts.push(acc); if (k < CFG.makes.length){ acc += d; d = Math.max(130, d * .74); } }
-  let i = -1;
-  for (let k = 0; k < words.length; k++) if (t >= starts[k]) i = k;
-  if (i < 0) return;
-  const slot = i < CFG.makes.length ? (starts[i + 1] - starts[i]) : 600;
-  const tr = Math.min(320, slot * .7);
-  const e = ease(clamp((t - starts[i]) / tr));
-  const last = i === words.length - 1;
-  ctx.save();
-  ctx.beginPath(); ctx.rect(-170, y2 - 36, 340, 72); ctx.clip();
-  const sz = fitSize(words, 46, 280);
-  ctx.font = font(sz); ctx.fillStyle = col();
-  glow(last ? 12 + 10 * clamp((t - starts[i] - tr) / 400) : 12);
-  ctx.globalAlpha = a * e; ctx.fillText(words[i], 0, y2 + (1 - e) * 48);
-  if (i > 0){ ctx.globalAlpha = a * (1 - e); ctx.fillText(words[i - 1], 0, y2 - e * 48); }
-  ctx.restore();
-}
-
-/* ---------- Scene 3: icons flipping faster and faster, then infinity ---------- */
-const ICONS = [
-  c => { c.arc(0, 0, .85, 0, Math.PI * 2); },
-  c => { c.rect(-.75, -.75, 1.5, 1.5); },
-  c => { c.moveTo(0, -.9); c.lineTo(.85, .65); c.lineTo(-.85, .65); c.closePath(); },
-  c => { c.moveTo(0, .8); c.bezierCurveTo(-1.15, 0, -.75, -1, 0, -.4); c.bezierCurveTo(.75, -1, 1.15, 0, 0, .8); },
-  c => { for (let k = 0; k <= 10; k++){ const r = k % 2 ? .4 : .92, th = -Math.PI / 2 + k * Math.PI / 5; const x = r * Math.cos(th), y = r * Math.sin(th); k ? c.lineTo(x, y) : c.moveTo(x, y); } },
-  c => { c.moveTo(.15, -1); c.lineTo(-.55, .1); c.lineTo(-.05, .1); c.lineTo(-.2, 1); c.lineTo(.55, -.15); c.lineTo(.05, -.15); c.closePath(); },
-  c => { c.moveTo(-.8, 0); c.lineTo(-.25, .6); c.lineTo(.85, -.6); },
-  c => { c.moveTo(-.85, -.05); c.lineTo(0, -.85); c.lineTo(.85, -.05); c.moveTo(-.6, -.25); c.lineTo(-.6, .8); c.lineTo(.6, .8); c.lineTo(.6, -.25); },
-  c => { c.moveTo(-.2, .8); c.arc(-.45, .6, .25, 0, Math.PI * 2); c.moveTo(.7, .6); c.arc(.45, .6, .25, 0, Math.PI * 2); c.moveTo(-.3, .4); c.lineTo(.55, -.9); c.moveTo(.3, .4); c.lineTo(-.55, -.9); },
-  c => { c.moveTo(-.75, .75); c.lineTo(-.6, .3); c.lineTo(.45, -.75); c.lineTo(.75, -.45); c.lineTo(-.3, .6); c.closePath(); c.moveTo(.3, -.6); c.lineTo(.6, -.3); },
-  c => { c.moveTo(-.9, 0); c.quadraticCurveTo(0, -.8, .9, 0); c.quadraticCurveTo(0, .8, -.9, 0); c.moveTo(.25, 0); c.arc(0, 0, .25, 0, Math.PI * 2); },
-  c => { c.moveTo(-.45, -.7); c.lineTo(.7, 0); c.lineTo(-.45, .7); c.closePath(); },
-  c => { c.moveTo(.4, 0); c.arc(0, 0, .4, 0, Math.PI * 2); for (let k = 0; k < 8; k++){ const th = k * Math.PI / 4; c.moveTo(.6 * Math.cos(th), .6 * Math.sin(th)); c.lineTo(.9 * Math.cos(th), .9 * Math.sin(th)); } },
-  c => { c.moveTo(-.85, 0); c.lineTo(.85, 0); c.moveTo(0, -.85); c.lineTo(0, .85); }
-];
-function sIcons(t, dur){
-  const a = env(t, dur), flipEnd = 5200;
-  ctx.strokeStyle = col(); ctx.lineCap = "round"; ctx.lineJoin = "round"; glow(10);
-  if (t < flipEnd){
-    if (t < 300) return;
-    let acc = 300, k = 0, iv = 650;
-    while (acc + iv < t && k < 500){ acc += iv; iv = Math.max(70, iv * .82); k++; }
-    const pop = 1 + .14 * Math.max(0, 1 - (t - acc) / iv * 4);
-    ctx.save(); ctx.translate(0, -12); ctx.scale(62 * pop, 62 * pop);
-    ctx.lineWidth = 3.4 / 62; ctx.globalAlpha = a;
-    ctx.beginPath(); ICONS[k % ICONS.length](ctx); ctx.stroke(); ctx.restore();
-  } else {
-    const p = clamp((t - flipEnd) / 900);
-    ctx.save(); ctx.translate(0, -12); ctx.scale(100, 100);
-    ctx.lineWidth = 4.6 / 100; ctx.globalAlpha = a; glow(16);
-    ctx.beginPath();
-    const n = Math.max(2, Math.floor(p * 180));
-    for (let j = 0; j <= n; j++){
-      const th = j / 180 * Math.PI * 2, den = 1 + Math.sin(th) ** 2;
-      const x = Math.cos(th) / den, y = Math.sin(th) * Math.cos(th) / den;
-      j ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
-    }
-    ctx.stroke(); ctx.restore();
-    ctx.globalAlpha = a * clamp((t - flipEnd - 900) / 600);
-    ctx.font = font(22, 800); ctx.textAlign = "center"; ctx.textBaseline = "middle";
-    ctx.fillStyle = col(); glow(10);
-    ctx.fillText(CFG.iconsCaption, 0, 84);
-  }
-}
-
-/* ---------- Scene 4: 0 -> 1 -> enterprise (one dot doubles into a grid) ---------- */
-const G = { cols:16, rows:16, w:220, h:140, cy:-24 };
-function slotOf(i){ const c = i % G.cols, r = Math.floor(i / G.cols);
-  return [-G.w / 2 + c * G.w / (G.cols - 1), G.cy - G.h / 2 + r * G.h / (G.rows - 1)]; }
-function birthOf(i){ if (i === 0) return 300; const k = Math.floor(Math.log2(i)) + 1; return 1800 + (k - 1) * 450; }
-function sScale(t, dur){
-  const a = env(t, dur);
-  ctx.fillStyle = col();
-  for (let i = 0; i < 256; i++){
-    const b = birthOf(i); if (t < b) break;
-    const [sx, sy] = slotOf(i); let x, y;
-    if (i === 0){ const e = ease(clamp((t - 1800) / 500)); x = sx * e; y = G.cy + (sy - G.cy) * e; }
-    else {
-      const par = i - Math.pow(2, Math.floor(Math.log2(i)));
-      const [px, py] = slotOf(par); const e = ease(clamp((t - b) / 450));
-      x = px + (sx - px) * e; y = py + (sy - py) * e;
-    }
-    const big = t < 1800;
-    const s = big ? 7 + 1.6 * Math.sin(t / 160) : 3.4;
-    ctx.globalAlpha = a * (i === 0 ? clamp((t - 300) / 300) : 1);
-    if (big) glow(18); else ctx.shadowBlur = 0;
-    ctx.fillRect(x - s / 2, y - s / 2, s, s);
-  }
-  const caps = [[300, 1800, CFG.scaleStart], [1800, 3700, CFG.career[0]], [3700, 5600, CFG.career[1]], [5600, 7600, CFG.career[2]], [7600, dur + 999, CFG.scaleEnd]];
-  ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = col(); glow(10);
-  for (const [s0, s1, txt] of caps){
-    const al = clamp((t - s0) / 300) * clamp((s1 - t) / 300);
-    if (al <= 0) continue;
-    ctx.font = font(fitSize([txt], 26, 280, 800), 800);
-    ctx.globalAlpha = a * al; ctx.fillText(txt, 0, 86);
-  }
-}
-
-/* ---------- Particles for Chladni patterns and the name ---------- */
-const N = 700;
-const PX = new Float32Array(N), PY = new Float32Array(N), TX = new Float32Array(N), TY = new Float32Array(N);
-let CHL_A = [], CHL_B = [], NAME = [];
-function chladni(n, m, sign){
-  const out = []; let guard = 0;
-  while (out.length < N && guard < 600000){
-    guard++;
-    const u = Math.random(), v = Math.random();
-    const f = Math.cos(n * Math.PI * u) * Math.cos(m * Math.PI * v) + sign * Math.cos(m * Math.PI * u) * Math.cos(n * Math.PI * v);
-    if (Math.abs(f) < .045) out.push([(u - .5) * 236, (v - .5) * 196]);
-  }
-  while (out.length < N) out.push(out.length ? out[out.length % Math.max(1, out.length)] : [0, 0]);
-  return out;
-}
-function nameTargets(){
-  const K = 3, oc = document.createElement("canvas"); oc.width = 300 * K; oc.height = 240 * K;
-  const o = oc.getContext("2d");
-  let sz = 70; o.font = font(sz * K);
-  const w = o.measureText(CFG.name).width / K; if (w > 270) sz *= 270 / w;
-  o.font = font(sz * K); o.textAlign = "center"; o.textBaseline = "middle"; o.fillStyle = "#fff";
-  o.fillText(CFG.name, 150 * K, 120 * K);
-  const data = o.getImageData(0, 0, oc.width, oc.height).data, pts = [];
-  for (let y = 0; y < oc.height; y += 3) for (let x = 0; x < oc.width; x += 3)
-    if (data[(y * oc.width + x) * 4 + 3] > 128) pts.push([x / K - 150, y / K - 120]);
-  for (let i = pts.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [pts[i], pts[j]] = [pts[j], pts[i]]; }
-  const out = []; for (let i = 0; i < N; i++) out.push(pts.length ? pts[i % pts.length] : [0, 0]);
-  return out;
-}
-function build(){ CHL_A = chladni(2, 5, -1); CHL_B = chladni(3, 7, 1); NAME = nameTargets(); }
-function scatter(){ for (let i = 0; i < N; i++){ PX[i] = (Math.random() - .5) * 300; PY[i] = (Math.random() - .5) * 240; } }
-function setTargets(arr){ for (let i = 0; i < N; i++){ TX[i] = arr[i][0]; TY[i] = arr[i][1]; } }
-function stepParticles(dt, k, jit){
-  const f = 1 - Math.exp(-dt * k);
-  for (let i = 0; i < N; i++){
-    PX[i] += (TX[i] - PX[i]) * f + (Math.random() - .5) * jit;
-    PY[i] += (TY[i] - PY[i]) * f + (Math.random() - .5) * jit;
-  }
-}
-function drawParticles(alpha){
-  ctx.shadowBlur = 0; ctx.fillStyle = col();
-  ctx.globalAlpha = alpha * .16;
-  for (let i = 0; i < N; i++) ctx.fillRect(PX[i] - 3, PY[i] - 3, 6, 6);
-  ctx.globalAlpha = alpha;
-  for (let i = 0; i < N; i++) ctx.fillRect(PX[i] - 1.4, PY[i] - 1.4, 2.8, 2.8);
-}
-
-/* ---------- Scene 5: studio, invitation, sand settles into a name ---------- */
-let nowPhase = -1;
-function sNow(t, dur, dt){
-  if (t < 3400){ fillLines(CFG.studio, 40, env(t, 3400)); return; }
-  if (t < 6800){ fillLines(CFG.invite, 34, env(t - 3400, 3400)); return; }
-  const pt = t - 6800;
-  const ph = pt < 2500 ? 0 : pt < 4600 ? 1 : 2;
-  if (ph !== nowPhase){ if (ph === 0) scatter(); setTargets([CHL_A, CHL_B, NAME][ph]); nowPhase = ph; }
-  const since = pt - [0, 2500, 4600][ph];
-  const jit = ph < 2 ? 2.4 * Math.max(.15, 1 - since / 1600) : .12;
-  stepParticles(dt, ph === 2 ? 3.2 : 2.6, jit);
-  drawParticles(clamp(pt / 400) * clamp((dur - t) / 600));
-}
-
-/* ---------- Scene 6: flip me over ---------- */
-function sFlip(t, dur){
-  const a = env(t, dur);
-  fillLines(CFG.flip, 40, a, 900, -16);
-  ctx.strokeStyle = col(); ctx.lineWidth = 3; ctx.lineCap = "round"; glow(12); ctx.globalAlpha = a;
-  const sp = (t / 1400) * Math.PI * 2;
-  ctx.beginPath(); ctx.arc(0, 52, 18, sp, sp + Math.PI * 1.5); ctx.stroke();
-  const ex = Math.cos(sp + Math.PI * 1.5) * 18, ey = 52 + Math.sin(sp + Math.PI * 1.5) * 18;
-  ctx.beginPath(); ctx.arc(ex, ey, 3.2, 0, Math.PI * 2); ctx.fillStyle = col(); ctx.fill();
-}
-
-/* ---------- Calibration pattern ---------- */
-function drawCal(){
-  ctx.strokeStyle = "#fff"; ctx.fillStyle = "#fff"; ctx.lineWidth = 1.6;
-  ctx.setLineDash([6, 5]); ctx.strokeRect(-150, -120, 300, 240); ctx.setLineDash([]);
-  ctx.beginPath(); ctx.moveTo(-12, 0); ctx.lineTo(12, 0); ctx.moveTo(0, -12); ctx.lineTo(0, 12); ctx.stroke();
-  ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  ctx.font = font(26, 800); ctx.fillText("BACK", 0, -86);
-  ctx.beginPath(); ctx.moveTo(0, -116); ctx.lineTo(-9, -103); ctx.lineTo(9, -103); ctx.closePath(); ctx.fill();
-  ctx.font = font(44); ctx.fillText("READ ME", 0, 40);
-  ctx.font = font(22, 800); ctx.fillText("L", -128, 0); ctx.fillText("R", 128, 0);
-  ctx.font = font(13, 500); ctx.fillText("front of box", 0, 106);
-}
-
-/* ---------- Playback ---------- */
-const SCENES = [
-  { name:"1 · Hello", dur:7000, f:sHello },
-  { name:"2 · I make", dur:9000, f:sMake },
-  { name:"3 · Icons", dur:7600, f:sIcons },
-  { name:"4 · 0 → 1 → enterprise", dur:10000, f:sScale },
-  { name:"5 · Studio + name", dur:15500, f:sNow, enter(){ nowPhase = -1; } },
-  { name:"6 · Flip me over", dur:3500, f:sFlip }
-];
-let mode = "idle", sceneIdx = 0, sceneT = 0, last = 0, raf = 0, countTimer = 0, wl = null;
-
-const vid = $("vid");
-function drawVideo(){
-  if (vid.readyState < 2) return;
-  const h = 360, w = h * (vid.videoWidth / vid.videoHeight || 9 / 16);   // fit the window height (units = 0.01 in)
-  ctx.drawImage(vid, -w / 2, -h / 2, w, h);
-}
-vid.addEventListener("ended", () => {
-  if (mode !== "video") return;
-  if (S.loop){ vid.currentTime = 0; vid.play().catch(() => {}); } else finish();
-});
-function frame(now){
-  const dt = Math.min(.05, (now - last) / 1000); last = now;
-  base();
-  if (mode === "cal") drawCal();
-  else if (mode === "video") drawVideo();
-  else if (mode === "play"){
-    sceneT += dt * 1000;
-    if (sceneT >= SCENES[sceneIdx].dur){
-      sceneIdx++; sceneT = 0;
-      if (sceneIdx >= SCENES.length){ if (S.loop) sceneIdx = 0; else { finish(); return; } }
-      if (SCENES[sceneIdx].enter) SCENES[sceneIdx].enter();
-    }
-    ctx.save(); SCENES[sceneIdx].f(sceneT, SCENES[sceneIdx].dur, dt); ctx.restore();
+  ctx.rotate((((H > W ? 90 : 0) + turn) % 360) * Math.PI / 180);
+  const s = Math.min(W, H) / 2.7 / 100;
+  ctx.scale(-s, s);
+  if (vid.readyState >= 2){
+    const h = 360, w = h * (vid.videoWidth / vid.videoHeight || 9 / 16);
+    ctx.drawImage(vid, -w / 2, -h / 2, w, h);
   }
   raf = requestAnimationFrame(frame);
 }
-function show(view){
-  $("menu").hidden = view !== "menu";
-  $("end").hidden = view !== "end";
-  $("count").hidden = view !== "count";
-  cv.hidden = view !== "stage";
-  if (view === "menu" || view === "end") window.scrollTo(0, 0);
-}
-async function wake(){ try { if (navigator.wakeLock) wl = await navigator.wakeLock.request("screen"); } catch(e) { wl = null; } }
+
+function show(id){ for (const k of ["start", "count"]) $(k).hidden = k !== id; cv.hidden = id !== "stage"; }
+async function wake(){ try { if (navigator.wakeLock) wl = await navigator.wakeLock.request("screen"); } catch(e) {} }
 function release(){ try { if (wl) wl.release(); } catch(e) {} wl = null; }
-function run(m){
-  mode = m; resize(); show("stage");
-  last = performance.now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(frame);
-}
-function startPlay(){
-  wake(); show("count");
-  // unlock playback with sound while we still have the tap
-  try { vid.muted = false; vid.currentTime = 0; const pr = vid.play(); if (pr) pr.then(() => { vid.pause(); vid.currentTime = 0; }).catch(() => {}); } catch(e) {}
+
+function begin(hand){
+  turn = hand === "left" ? 180 : 0;
+  wake();
+  // unlock sound while we still have the tap
+  try { vid.muted = false; vid.currentTime = 0; const p = vid.play(); if (p) p.then(() => { vid.pause(); vid.currentTime = 0; }).catch(() => {}); } catch(e) {}
+  show("count");
   let n = 5; $("countN").textContent = n;
-  clearInterval(countTimer);
-  countTimer = setInterval(() => {
-    n--;
-    if (n > 0){ $("countN").textContent = n; return; }
-    clearInterval(countTimer);
+  clearInterval(timer);
+  timer = setInterval(() => {
+    if (--n > 0){ $("countN").textContent = n; return; }
+    clearInterval(timer);
+    resize(); show("stage"); playing = true;
     vid.currentTime = 0;
     vid.play().catch(() => { vid.muted = true; vid.play().catch(() => {}); });
-    run("video");
+    cancelAnimationFrame(raf); raf = requestAnimationFrame(frame);
   }, 1000);
 }
-function stop(){ try { vid.pause(); } catch(e) {} clearInterval(countTimer); cancelAnimationFrame(raf); mode = "idle"; release(); show("menu"); }
-function finish(){ try { vid.pause(); } catch(e) {} cancelAnimationFrame(raf); mode = "idle"; release(); show("end"); }
-
-/* ---------- Wire up the settings ---------- */
-function syncUI(){
-  $("mx").checked = S.mx; $("my").checked = S.my; $("loop").checked = S.loop;
-  $("turnVal").textContent = S.turn + "°";
-  $("size").value = S.size; $("sizeVal").textContent = S.size + "%";
-  document.querySelectorAll('input[name=color]').forEach(r => r.checked = r.value === S.color);
+function reset(){
+  clearInterval(timer); cancelAnimationFrame(raf); playing = false;
+  try { vid.pause(); } catch(e) {}
+  release(); show("start");
 }
-
-$("mx").addEventListener("change", e => { S.mx = e.target.checked; save(); });
-$("my").addEventListener("change", e => { S.my = e.target.checked; save(); });
-$("loop").addEventListener("change", e => { S.loop = e.target.checked; save(); });
-$("turn").addEventListener("click", () => { S.turn = (S.turn + 90) % 360; save(); syncUI(); });
-$("size").addEventListener("input", e => { S.size = +e.target.value; save(); syncUI(); });
-document.querySelectorAll('input[name=color]').forEach(r => r.addEventListener("change", () => { S.color = r.value; save(); }));
-
-$("play").addEventListener("click", startPlay);
-$("cal").addEventListener("click", () => { wake(); run("cal"); });
-$("replay").addEventListener("click", startPlay);
-$("back").addEventListener("click", stop);
-cv.addEventListener("click", stop);
-$("count").addEventListener("click", stop);
-document.addEventListener("visibilitychange", () => { if (!document.hidden && mode !== "idle") wake(); });
-syncUI();
-
-build();
-if (document.fonts && document.fonts.load){
-  Promise.all([document.fonts.load(font(60)), document.fonts.load(font(40, 800))]).then(build, () => {});
-}
+vid.addEventListener("ended", () => { if (playing) reset(); });
+$("left").addEventListener("click", () => begin("left"));
+$("right").addEventListener("click", () => begin("right"));
+$("count").addEventListener("click", reset);
+cv.addEventListener("click", reset);
+document.addEventListener("visibilitychange", () => { if (!document.hidden && playing) wake(); });
 })();
 </script>
-
 </body>
 </html>
